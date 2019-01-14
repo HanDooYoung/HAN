@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class Main{
+	
+
+public static void main(String[] args){
+	Scanner sc= new Scanner(System.in);
+	String st=sc.nextLine();
+	int wordnum=0,a=0;
+	int len=st.length();
+	for(int i=0;i<len;i++){
+		st.charAt(i);
+		if(st.charAt(i)==' ') {
+			if(a==1){
+				wordnum++;
+				a=0;
+			}
+		}
+		else{
+			if(a==0){
+				a=1;
+			}
+		}
+	}
+	if(a==1) wordnum++;
+	System.out.println(wordnum);
+}
+}
