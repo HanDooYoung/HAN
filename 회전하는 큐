@@ -1,0 +1,54 @@
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		Deque<Integer>dq=new LinkedList<Integer>();
+		int N,M,O;
+		int count=0;
+		int check=0;
+		boolean flag;
+		
+		N=sc.nextInt();
+		M=sc.nextInt();
+		
+		for(int i=1;i<=N;i++) dq.offerLast(i);
+		
+		while(M>0) {
+			O=sc.nextInt();
+			for(Integer e:dq) {
+				if(e==O) {
+					break;
+				}
+				check++;
+			}
+			if(check<=N/2) {
+				flag=true;
+			}
+			else {
+				check=N-check;
+				flag=false;
+			}
+			while(check>0) {
+				if(flag) {
+					dq.offerLast(dq.pollFirst());
+				}
+				else {
+					dq.offerFirst(dq.pollLast());
+				}
+				count++;
+				check--;
+			}
+			dq.pollFirst();
+			N--;
+			M--;
+		}
+		System.out.print(count);
+
+	}
+
+}
