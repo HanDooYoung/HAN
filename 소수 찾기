@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int N1, N2, i, j, count = 0;
+		N1 = sc.nextInt();
+		byte b[] = new byte[126];
+		for (i = 0; i < 126; i++) {
+			b[i] = (byte) 0xff;
+		}
+		b[0] <<= 2;
+		for (i = 2; i <= 31; i++) {
+			if ((b[i >> 3] & (1 << (i & 7))) != 0) {
+				for (j = i * i; j <= 1000; j += i) {
+					b[j >> 3] &= ~(1 << (j & 7));
+				}
+			}
+		}
+		for (i = 0; i < N1; i++) {
+			N2 = sc.nextInt();
+			if ((b[N2 >> 3] & (1 << (N2 & 7))) != 0) {
+				count++;
+			}
+		}
+		System.out.print(count);
+	}
