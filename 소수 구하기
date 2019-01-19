@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int M, N;
+		int sieve[] = new int[31251];
+		for (M = 0; M < 31251; M++) {
+			sieve[M] = ~sieve[M];
+		}
+		sieve[0] <<= 2;
+		for (M = 2; M <= 1000; M++) {
+			if ((sieve[M >> 5] & (1 << (M & 31))) != 0) {
+				for (N = M * M; N <= 1000000; N += M) {
+					sieve[N >> 5] &= ~(1 << (N & 31));
+				}
+			}
+		}
+		M = sc.nextInt();
+		N = sc.nextInt();
+		for (; M <= N; M++) {
+			if ((sieve[M >> 5] & (1 << (M & 31))) != 0) {
+				System.out.println(M);
+			}
+		}
+	}
+}
