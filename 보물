@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		int N,i,j,save = 0,min = 10001,S = 0;
+		boolean flag=false;
+		N=sc.nextInt();
+		int[] A=new int[N];
+		int[] B=new int[N];
+		int[] a=new int[N];
+		int[] b=new int[N];
+		for(i=0;i<N;i++) A[i]=sc.nextInt();
+		for(i=0;i<N;i++) B[i]=sc.nextInt();
+		for(i=0;i<N-1;i++) {
+			for(j=0;j<(N-1)-i;j++) {
+				if(A[j]>A[j+1]) {
+					flag=true;
+					save=A[j];
+					A[j]=A[j+1];
+					A[j+1]=save;
+				}
+			}
+			if(flag) flag=false;
+			else break;
+		}
+		for(i=0;i<N;i++) a[i]=A[i];
+		for(i=0;i<N;i++) b[i]=B[i];
+		for(i=N-1;i>=0;i--) {
+			for(j=0;j<N;j++) {
+				if(min>=a[i]*b[j]&&b[j]!=101) {
+					min=a[i]*b[j];
+					save=j;
+				}
+			}
+			b[save]=101;
+			A[save]=a[i];
+			min=10001;
+		}
+		for(i=0;i<N;i++) S+=A[i]*B[i];
+		System.out.print(S);
+	}
+}
