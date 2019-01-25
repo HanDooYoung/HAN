@@ -1,0 +1,95 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		// TODO Auto-generated method stub
+
+		Scanner sc = new Scanner(System.in);
+		int N, M, u, v = 0;
+		N = sc.nextInt();
+
+		M = sc.nextInt();
+
+		int count[] = new int[N];
+
+		boolean flag[] = new boolean[N];
+
+		boolean uv[][] = new boolean[N][N];
+
+		for (int i = 0; i < M; i++) {
+
+			u = sc.nextInt();
+
+			v = sc.nextInt();
+
+			uv[u - 1][v - 1] = true;
+
+			uv[v - 1][u - 1] = true;
+
+		}
+
+		for (int i = 0; i < N; i++) {
+			bfs(i, N, count, flag, uv);
+			for (int j = 0; j < N; j++) {
+				flag[j] = false;
+			}
+		}
+
+		u = 1000000;
+
+		for (int i = 0; i < N; i++) {
+
+			if (count[i] < u && count[i] != 0) {
+
+				u = count[i];
+
+				v = i;
+
+			}
+
+		}
+
+		System.out.println(v + 1);
+
+	}
+
+	public static void bfs(int num, int N, int count[], boolean flag[], boolean uv[][]) {
+
+		Queue<Integer> que = new LinkedList<>();
+		int nc[] = new int[N];
+		int n = num;
+
+		que.offer(num);
+
+		flag[num] = true;
+
+		while (!que.isEmpty()) {
+
+			num = que.poll();
+
+			for (int i = 0; i < N; i++) {
+
+				if (!flag[i] && uv[num][i]) {
+
+					nc[i] = nc[num] + 1;
+
+					que.offer(i);
+
+					flag[i] = true;
+
+				}
+
+			}
+
+		}
+		for (int i = 0; i < N; i++) {
+			count[n] += nc[i];
+		}
+
+	}
+
+}
