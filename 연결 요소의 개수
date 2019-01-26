@@ -1,0 +1,38 @@
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int N, M, u, v, count = 0;
+		N = sc.nextInt();
+		M = sc.nextInt();
+		int uv[][] = new int[N][N];
+		int uvNum[] = new int[N];
+		boolean flag[] = new boolean[N];
+		for (int i = 0; i < M; i++) {
+			u = sc.nextInt();
+			v = sc.nextInt();
+			uv[(u - 1)][uvNum[(u - 1)]] = v;
+			uvNum[(u - 1)]++;
+			uv[(v - 1)][uvNum[(v - 1)]] = u;
+			uvNum[(v - 1)]++;
+		}
+		for (int i = 0; i < N; i++) {
+			if (!flag[i]) {
+				count++;
+				ConnectedComponent(i, uv, uvNum, flag);
+			}
+		}
+		System.out.println(count);
+	}
+
+	public static void ConnectedComponent(int start, int uv[][], int uvNum[], boolean flag[]) {
+		flag[start] = true;
+		for (int i = 0; i < uvNum[start]; i++) {
+			if (!flag[(uv[start][i] - 1)]) {
+				ConnectedComponent((uv[start][i] - 1), uv, uvNum, flag);
+			}
+		}
+	}
+}
