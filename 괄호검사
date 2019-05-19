@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<string.h>
+char st[100],to[10],a,b;
+int top=-1;
+void push(char a), pop();
+int math();
+int main() {
+	while (1) {
+		top = -1;
+		scanf("%s", &st);
+		if (math()&&top==-1)
+			printf("괄호가 올바릅니다.");
+		else
+			printf("괄호가 올바르지 않습니다.");
+	}
+	return 0;
+}
+int math() {
+	for (int i = 0; i < strlen(st); i++) {
+		if (st[i] == '[') {
+			for (int j = top; j >= 0; j--) {
+				if (to[j] == '{' || to[j] == '(') {
+					return 0;
+				}
+			}
+			push(st[i]);
+		}
+		else if (st[i] == '{') {
+			for (int j = top; j >= 0; j--) {
+				if (to[j] == '(') {
+					return 0;
+				}
+			}
+			push(st[i]);
+		}
+		else if (st[i] == '(') {
+			push(st[i]);
+		}
+		else if (st[i] == ']') {
+			if (to[top] == '[') {
+				pop();
+			}
+			else
+				return 0;
+		}
+		else if (st[i] == '}') {
+			if (to[top] == '{') {
+				pop();
+			}
+			else
+				return 0;
+		}
+		else if (st[i] == ')') {
+			if (to[top] == '(') {
+				pop();
+			}
+			else
+				return 0;
+		}
+	}
+	return 1;
+}
+void push(char a) {
+	top++;
+	to[top] = a;
+}
+void pop() {
+	to[top] = NULL;
+	top--;
+}
