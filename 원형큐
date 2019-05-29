@@ -1,0 +1,50 @@
+#include<stdio.h>
+int queue[5], b,a,flag=0;
+int f = 0, r = 0;
+void push(), pop();
+int main() {
+	while (1) {
+		printf("push(1) pop(2) view(3)");
+		scanf("%d", &b);
+		switch (b) {
+		case 1:
+			if (f == r&&flag==1) {
+				printf("큐가 다 쌓였습니다.\n");
+			}
+			else if (f < 5) {
+				printf("0이아닌 수를 입력해주세요.\n");
+				scanf("%d", &a);
+				push();
+			}
+			break;
+		case 2:
+			if (f==r&&flag==0) {
+				printf("큐가 다 비였습니다.\n");
+			}
+			else {
+				pop();
+			}
+			break;
+		case 3:
+			for (int j = 0; j <= 4; j++) {
+				printf("큐[%d]=%d\n", j, queue[j]);
+			}
+			break;
+		}
+	}
+	return 0;
+}
+void push() {
+	queue[f%5] = a;
+	f++;
+	if (f == 5)
+		f = 0;
+	flag = 1;
+}
+void pop() {
+	queue[r%5] = 0;
+	r++;
+	if (r == 5)
+		r = 0;
+	flag = 0;
+}
