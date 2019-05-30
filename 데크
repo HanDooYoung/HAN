@@ -1,0 +1,92 @@
+#include<stdio.h>
+#define n 6
+int front, rear , i;
+char deck[n], a='a';
+void push(), push2(), pop(), pop2();
+int main() {
+	front = n / 2;
+	rear = (n / 2) - 1;
+	while (1) {
+		int b;
+		printf("1(앞에넣기) 2(뒤에넣기) 3(앞에서빼기) 4(뒤에서빼기) 5(데크보기)\n");
+		scanf("%d", &b);
+		switch (b) {
+		case 1:
+			push();
+			break;
+		case 2:
+			push2();
+			break;
+		case 3:
+			pop();
+			break;
+		case 4:
+			pop2();
+			break;
+		case 5:
+			printf("|%c|%c|%c||%c|%c|%c|\n", deck[0], deck[1], deck[2], deck[3], deck[4], deck[5]);
+			break;
+		}
+	}
+	return 0;
+}
+void push() {
+	if (front == 0) {
+		if (rear == n-1) {
+			printf("데크가 꽉 찼습니다.\n");
+		}
+		else {
+			rear++;
+			for (i = rear; i > -1; i--) deck[i] = deck[i - 1];
+			deck[front] = a++;
+		}
+	}
+	else {
+		front--;
+		deck[front] = a++;
+	}
+}
+void push2() {
+	if (rear == n-1) {
+		if (front==0) {
+			printf("데크가 꽉 찼습니다.\n");
+		}
+		else {
+			front--;
+			for (i = front; i <n; i++) deck[i] = deck[i + 1];
+			deck[rear] = a++;
+		}
+	}
+	else {
+		rear++;
+		deck[rear] = a++;
+	}
+}
+void pop() {
+	if (front>rear) {
+		printf("데크가 다 비어져있습니다.\n");
+	}
+	else {
+		deck[front] = NULL;
+		front++;
+		a--;
+		if (front > rear) {
+			front = (n/2);
+			rear = (n/2)-1;
+		}
+	}
+}
+void pop2() {
+	if (front>rear) {
+		printf("데크가 다 비어져있습니다.\n");
+	}
+	else {
+		deck[rear] = NULL;
+		rear--;
+		a--;
+		if (front > rear) {
+			front = (n/2);
+			rear = (n/2)-1;
+		}
+	}
+}
